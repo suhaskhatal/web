@@ -1,83 +1,11 @@
-<!doctype html>
-<html lang="en">
-<head>
-<!-- Web browser auto-refresh functionality (every 30 seconds)
-<meta http-equiv="refresh" content="30">-->
-<meta charset="utf-8">
-<title>Embedded SAIL Playbook Demo</title>
-<base href="/">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<!---Required embeddedBootstrap tag--->
-<script src="https://infosysdev.appiancloud.com/suite/tempo/ui/sail-client/embeddedBootstrap.nocache.js"
-            id="appianEmbedded"></script>
-<script>
-      //Replace with relevant task report URL stub
-      const reportURLStub = 'https://infosysdev.appiancloud.com/suite/tempo/tasks/-OmqXw';
- 
-      window.onload = function () {
-        var reportInsertDiv = document.getElementById('reportInsertPoint');
-        var newReport = document.createElement("appian-report");
-        newReport.setAttribute("reportUrlStub", reportURLStub);
-        newReport.setAttribute("id", "embeddedTaskReport");
-        reportInsertDiv.appendChild(newReport);
-        // Event listener for links clicked on task report
-        document.getElementById("embeddedTaskReport")
-          .addEventListener(
-            "open-task-link",
-            (event) => {taskLinkClicked(event);},
-            false
-          );
-      }
-      // This function handles the behavior of the task when the task link is selected from the task report.
-      function taskLinkClicked(event) {
-        event.preventDefault();
-        console.log("The task link has been clicked! "
-          + event.detail.taskId
-        );
-        //Uncommenting lines 41-44 will provide the behavior of replacing the task report with the task itself. 
-        //On completion of the task it will re-display the task report.
- 
-        // var reportInsertDiv = document.getElementById('reportInsertPoint');
-        // var reportChild = document.getElementById('reportInsertPoint').children[0];
-        // var newReport = document.createElement("p");
-        // reportInsertDiv.replaceChild(newReport, reportChild);
- 
-        var taskInsertDiv = document.getElementById('taskInsertPoint');
-        var taskChild = document.getElementById('taskInsertPoint').children[0];
-        var newTask = document.createElement('appian-task');
-        newTask.setAttribute("taskId", event.detail.taskId);
-        newTask.addEventListener("submit", handleSubmit, false);
-        taskInsertDiv.replaceChild(newTask, taskChild);
-      }
- 
-      function handleSubmit() {
-        var insertDiv = document.getElementById('taskInsertPoint');
-        var child = document.getElementById('taskInsertPoint').children[0];
-        var paragraph = document.createElement("p");
-        insertDiv.replaceChild(paragraph, child);
- 
-        var reportInsertDiv = document.getElementById('reportInsertPoint');
-        var reportChild = document.getElementById('reportInsertPoint').children[0];
-        var newReport = document.createElement("appian-report");
-        newReport.setAttribute("reportUrlStub", reportURLStub);
-        newReport.setAttribute("id", "embeddedTaskReport");
-        reportInsertDiv.replaceChild(newReport, reportChild);
- 
-        document.getElementById("embeddedTaskReport")
-          .addEventListener(
-            "open-task-link",
-            (event) => {taskLinkClicked(event);},
-            false
-          );
-      }
-</script>
-</head>
- 
+<!DOCTYPE html >
+<html>
+  <head>
+   <!-- This script loads the Appian Web components; change it to your Appian server's domain -->
+    <script src="https://infosysdev.appiancloud.com/suite/tempo/ui/sail-client/embeddedBootstrap.nocache.js" id="appianEmbedded"></script>
+  </head>
   <body>
-<div id="reportInsertPoint"></div>
-<div id="taskInsertPoint">
-<div id="taskInsertPointChild"/>
-</div>
-</body>
+    <!-- This custom HTML element specifies an Appian report to embed on the HTML page -->
+   <appian-action processModelUuid="0002ec1d-135c-8000-5b4c-7f0000014e7a"></appian-action>
+  </body>
 </html>
